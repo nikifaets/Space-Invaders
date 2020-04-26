@@ -6,6 +6,9 @@
 
 #define null_vector_3d Vector3D(INFINITY, INFINITY, INFINITY)
 
+//This code is inspired from
+//https://github.com/nikifaets/RayTracing/tree/master/src/Spatial/Primitives
+
 class Vector3D{
 
 public:

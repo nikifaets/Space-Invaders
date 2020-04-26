@@ -6,23 +6,33 @@
 #include "Graphics/Sprite/Sprite.h"
 #include "Geometry/Shape/Shape.h"
 #include "Geometry/Shape/ShapeRect/ShapeRect.h"
-
+#include "Game/Scene/Scene.h"
+#include "Graphics/MainWindow/MainWindow.h"
 #include <iostream>
 using namespace std;
 
 int main() {
 
-    ShapeRect rect;
-    Shape* shape;
+    //Create window
+    MainWindow window(480, 640);
+    SDL_Renderer* renderer = window.get_renderer();
 
-    Vector2D rect_size = rect.get_rect();
-    rect_size.print_vector();
+    //Create scene
+    Scene scene(renderer);
 
-    shape = &rect;
+    //Create main player
+    Sprite player_texture(5);
+    SceneComponent player;
+
+    player.set_sprite(&player_texture);
+    player.set_translation(Vector2D(200,300));
+
+    //Add player to scene
+    scene.add_player(&player);
+
+    //Start main loop
+    scene.loop();
     
-    Sprite sprite(&rect);
-    std::vector<std::vector<Vector3D> > txt = sprite.get_color_matrix();
 
-    cout << txt.size();
     return 0;
 }

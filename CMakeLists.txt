@@ -12,7 +12,6 @@ file(GLOB_RECURSE Invaders_SRC
 add_executable(${PROJECT_NAME} ${Invaders_SRC})
 
 
-# The modern way, using cmake config files
 find_package(SDL2 REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main)
 

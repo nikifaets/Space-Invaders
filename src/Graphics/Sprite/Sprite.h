@@ -13,8 +13,8 @@ class Sprite{
 
     public:
 
-    Sprite();
-    Sprite(ShapeRect* rect, Vector3D color = Vector3D(255,255,255));
+    Sprite(ShapeRect* rect = new ShapeRect(), Vector3D color = Vector3D(255,255,255));
+    Sprite(int size, Vector3D color = Vector3D(255,255,255));
     std::vector<std::vector<Vector3D> > get_color_matrix();
 
 
