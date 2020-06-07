@@ -6,6 +6,8 @@
 
 #define null_vector_2d Vector2D(INFINITY, INFINITY)
 
+//This code is inspired from
+//https://github.com/nikifaets/RayTracing/tree/master/src/Spatial/Primitives
 class Vector2D{
 
 public:
@@ -13,7 +15,7 @@ public:
 	float x;
 	float y;
 	float z;
-	
+		
 	Vector2D();
 	Vector2D(float x_, float y_);
 

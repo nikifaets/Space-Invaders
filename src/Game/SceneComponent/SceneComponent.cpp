@@ -24,3 +24,15 @@ void SceneComponent::translate(Vector2D translation){
 
     this->translation = this->translation + translation;
 }
+
+void SceneComponent::loop(){}
+
+void SceneComponent::set_type(Type type){
+
+    this->type = type;
+}
+
+Type SceneComponent::get_type(){
+
+    return type;
+}

@@ -3,10 +3,12 @@
 
 #include "../../Graphics/Sprite/Sprite.h"
 
+enum Type {Actor, Particle};
 class SceneComponent{
 
     Sprite* sprite;
     Vector2D translation;
+    Type type = Actor;
 
     public:
 
@@ -15,6 +17,9 @@ class SceneComponent{
     void set_translation(Vector2D translation);
     Vector2D get_translation();
     void translate(Vector2D translation);
+    virtual void loop();
+    void set_type(Type type);
+    Type get_type();
 };
 
 #endif

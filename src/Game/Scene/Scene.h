@@ -7,6 +7,9 @@
 
 class Scene{
 
+    static const int WIDTH = 640;
+    static const int HEIGHT = 480;
+
     std::vector<SceneComponent*> components;
     SceneComponent* player;
 
@@ -15,8 +18,10 @@ class Scene{
 
     SDL_Renderer* renderer;
 
-    void handle_input();
+    void handle_input(SDL_Event& event);
     void render_component(SceneComponent* component);
+    bool is_on_screen(SceneComponent* component);
+    void clear_components();
     
     public:
 

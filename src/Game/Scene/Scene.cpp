@@ -1,6 +1,6 @@
 #include "Scene.h"
 #include <iostream>
-
+#include "../SceneComponent/Bullet.h"
 Scene::Scene(){
 
 }
@@ -21,15 +21,28 @@ void Scene::loop(){
 		SDL_SetRenderDrawColor(renderer, 0,0,0,255);
 		SDL_RenderClear(renderer);
 
-		handle_input();
+		handle_input(event);
+
+		//let all components perform their updates
+
+		for(int i=0; i<components.size(); i++){
+
+			components[i]->loop();
+		}
+
+		//clear particles outside of the screen
+		clear_components();
+
         //render all components in scene
         for(int i=0; i<components.size(); i++){
 
             render_component(components[i]);
-            SDL_Delay(10);
         }
 
-        SDL_PollEvent(&event);
+		SDL_PollEvent(&event);
+
+		SDL_RenderPresent(renderer);
+		SDL_Delay(10);
 
     }
 
@@ -75,10 +88,9 @@ void Scene::render_component(SceneComponent* component){
 		}
 	}
 
-	SDL_RenderPresent(renderer);
 }
 
-void Scene::handle_input(){
+void Scene::handle_input(SDL_Event &event){
 
 	const Uint8 *state = SDL_GetKeyboardState(NULL);
 	if (state[SDL_SCANCODE_W]) {
@@ -95,8 +107,41 @@ void Scene::handle_input(){
 		player->translate(Vector2D(0,5));
 	}
 
+
 	if (state[SDL_SCANCODE_A]) {
 
 		player->translate(Vector2D(0,-5));
 	}
+
+	if(event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_SPACE){
+
+		add_component(new Bullet(player->get_translation()));
+	}
+
+}
+  
+void Scene::clear_components(){
+
+	for(int i=0; i<components.size(); i++){
+
+		if(! is_on_screen(components[i])){
+
+			if(components[i]->get_type() == Type::Particle){
+
+				components.erase(components.begin()+i);
+				//delete components[i];
+
+			}
+		}
+	}
+}
+
+bool Scene::is_on_screen(SceneComponent* component){
+
+	Vector2D pos = component->get_translation();
+
+	if(pos.x > WIDTH || pos.x < 0) return false;
+	if(pos.y > HEIGHT || pos.y < 0) return false;
+
+	return true;
 }

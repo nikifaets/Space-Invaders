@@ -21,7 +21,7 @@ int main() {
     Scene scene(renderer);
 
     //Create main player
-    Sprite player_texture(5);
+    Sprite player_texture(20);
     SceneComponent player;
 
     player.set_sprite(&player_texture);
